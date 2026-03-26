@@ -7,7 +7,7 @@ Binary classifier implemented from scratch in NumPy. Uses a sigmoid activation o
 - **Backward**: computes gradients `dw = Xᵀ(ŷ−y)/n` and `db = mean(ŷ−y)`, then updates weights via gradient descent
 
 ### RNN
-Vanilla (Elman) RNN implemented in PyTorch. At each time step, the input and previous hidden state are concatenated and passed through a linear layer with sigmoid activation to produce the new hidden state. A second linear layer maps the hidden state to output logits, followed by log-softmax for next-token prediction.
+Vanilla RNN implemented in PyTorch. At each time step, the input and previous hidden state are concatenated and passed through a linear layer with sigmoid activation to produce the new hidden state. A second linear layer maps the hidden state to output logits, followed by log-softmax for next-token prediction.
 
 Architecture diagram from Georgia Tech CS7650:
 <img width="684" height="300" alt="image" src="https://github.com/user-attachments/assets/43c12853-05a6-4bd5-9038-4fed26632b93" />
