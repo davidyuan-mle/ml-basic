@@ -23,3 +23,9 @@ LSTM cell implemented from scratch in PyTorch. Each gate is built with explicit 
 Architecture diagram from Georgia Tech CS7650:
 <img width="704" height="397" alt="image" src="https://github.com/user-attachments/assets/28a3e895-bc33-418e-863b-a662a38f6d94" />
 
+### Multi-Head Attention
+Multi-head attention implemented from scratch in PyTorch. Projects input into multiple parallel attention heads, each operating on a lower-dimensional subspace, then concatenates and projects back:
+- **Linear projections**: separate `W_q`, `W_k`, `W_v` project input `x` into queries, keys, and values, then reshape into `(B, n_heads, T, d_k)` where `d_k = d_model / n_heads`
+- **Scaled dot-product attention**: `scores = QKᵀ / √d_k`, with optional mask applied before softmax to produce attention weights
+- **Output projection**: weighted values from all heads are concatenated and passed through a final linear layer `W_o`
+
