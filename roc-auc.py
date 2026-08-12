@@ -1,3 +1,27 @@
+# IDEA
+#
+# A classifier outputs a score, not a label. To get a label you pick a threshold:
+# predict positive if score >= threshold. Every threshold gives a different
+# (FPR, TPR) trade-off. The ROC curve is the set of all those trade-offs, and
+# AUC is the area under it.
+#
+#   TPR = TP / P  (of all real positives, how many did we catch)
+#   FPR = FP / N  (of all real negatives, how many did we falsely flag)
+#
+# Brute force is O(n^2): try every threshold, rescan all points. Instead, sort by
+# score descending and sweep the threshold downward. Each step admits exactly one
+# more point into the "predicted positive" set, so TP/FP only ever increment ->
+# one pass, O(n log n) dominated by the sort.
+#
+# Ties matter: points with equal scores can't be separated by any threshold, so
+# they must all cross together. That's why a point is only emitted when the score
+# changes (and once more at the end for the final, all-positive prediction).
+#
+# The curve starts near (0,0) (high threshold, predict nothing positive) and ends
+# at (1,1) (low threshold, predict everything positive). AUC integrates it with
+# the trapezoid rule -- each step contributes a rectangle plus a triangle.
+# AUC = P(random positive scores above random negative); 0.5 = coin flip, 1.0 = perfect.
+#
 # y_pred = list of probability
 # y_true = list of actual labels (true / false, or 1 / 0)
 
