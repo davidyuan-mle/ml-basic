@@ -29,3 +29,10 @@ Multi-head attention implemented from scratch in PyTorch. Projects input into mu
 - **Scaled dot-product attention**: `scores = QKᵀ / √d_k`, with optional mask applied before softmax to produce attention weights
 - **Output projection**: weighted values from all heads are concatenated and passed through a final linear layer `W_o`
 
+### ROC / AUC
+ROC curve and AUC implemented from scratch in pure Python, validated against `sklearn.metrics.roc_auc_score`. A classifier outputs a score, not a label — every threshold gives a different `(FPR, TPR)` trade-off, and the ROC curve is the set of all of them:
+- **Threshold sweep**: sorting by score descending turns the naive O(n²) rescan into a single pass — each step admits one more point into the predicted-positive set, so `TP` and `FP` only ever increment (O(n log n), dominated by the sort)
+- **Rates**: `TPR = TP / P` (of all real positives, how many were caught) and `FPR = FP / N` (of all real negatives, how many were falsely flagged)
+- **Tie handling**: points with equal scores can't be separated by any threshold, so a point is only emitted when the score changes, plus one final point for the all-positive prediction
+- **AUC**: trapezoid integration over the curve, each step contributing a rectangle plus a triangle — equal to `P(random positive scores above random negative)`, where 0.5 is a coin flip and 1.0 is perfect
+
